@@ -1,16 +1,15 @@
 import { OrbitControls } from '@react-three/drei/native';
 import { Canvas } from '@react-three/fiber/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, Text as RNText, StyleSheet} from 'react-native';
+import { Pressable, Text as RNText, StyleSheet, View } from 'react-native';
+import { backgroundImage} from '../../utils/Styles'; 
 import GameLevelSelection from '../../components/GameLevelSelection';
 import { boardMatrices, generateInitialPieces, handleBotMove } from '../../utils/Functions';
 import ExplosionEffect from './Components/ExplosionEffect/explosionEffect';
 import PiecesDark from './Components/PiecesDark';
 import PiecesLight from './Components/PiecesLight';
 import ScoreCard from './Components/ScoreCard';
-import { ImageBackground, View } from 'react-native';
-import { styles, backgroundImage } from '../../utils/Styles';
-import GameOver from '../../components/GameOver';
+
 // 👇 ADĂUGAT: tip pentru prop
 type GamePageProps = { initialLevel?: 'Easy' | 'Medium' | 'Hard' };
 
@@ -154,48 +153,84 @@ function GamePage({ initialLevel }: GamePageProps) {
   if (isGameOver) {
     const winnerText = scoreDark > scoreLight ? 'WINNER' : 'YOU LOSE';
     return (
-      <GameOver
-        winnerText={winnerText}
-        onPlayAgain={handlePlayAgain}
-      />
+      <View style={styles.container}>
+        <View style={styles.centered}>
+          <RNText style={styles.gameOverText}>{winnerText}</RNText>
+          <Pressable style={styles.playAgainBtn} onPress={handlePlayAgain}>
+            <RNText style={styles.playAgainText}>START AGAIN</RNText>
+          </Pressable>
+        </View>
+      </View>
     );
   }
 
   return (
-    <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
-      <View style={styles.gameGrid} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-        <Canvas style={{ flex: 1 }} camera={{ position: [0, 3, 7], fov: 60 }}>
-          <ambientLight intensity={0.9} />
-          <directionalLight position={[5, 10, 5]} intensity={0.6} />
-          <group position={groupPosition}>
-            {allBoards}
-            {pieces.map((piece) => {
-              const isJump = !!jumpingPieces[piece.id];
-              return piece.type === 'D' ? (
-                <PiecesDark key={piece.id} id={piece.id} position={piece.position} onClick={handlePieceClick}
-                  isQueen={piece.isQueen} isSelected={piece.id === selectedPieceId} isJump={isJump} />
-              ) : (
-                <PiecesLight key={piece.id} id={piece.id} position={piece.position} onClick={handlePieceClick}
-                  isQueen={piece.isQueen} isJump={isJump} />
-              );
-            })}
-            {explosions.map((explosion) => (
-              <ExplosionEffect key={explosion.id} position={explosion.position}
-                onComplete={() => setExplosions(prev => prev.filter(e => e.id !== explosion.id))} />
-            ))}
-          </group>
-          <OrbitControls />
-        </Canvas>
-  
-        <ScoreCard scoreDark={scoreDark} scoreLight={scoreLight}
-          style={{ position: 'absolute', top: 60, left: 20 }} />
-  
-        <Pressable style={[styles.startAgainButton, { position: 'absolute', bottom: 40 }]} onPress={handlePlayAgain}>
-          <RNText style={styles.text}>START AGAIN</RNText>
-        </Pressable>
-      </View>
-    </ImageBackground>
+    <View style={styles.container} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+      {/* 👇 Asigură-te că Canvas are stil flex:1 */}
+      <Canvas style={{ flex: 1 }} camera={{ position: [0, 3, 7], fov: 60 }}>
+        {/* Lumină suficientă și un obiect de test ca să confirmăm randarea */}
+        <ambientLight intensity={0.9} />
+        <directionalLight position={[5, 10, 5]} intensity={0.6} />
+
+      
+       
+
+        <group position={groupPosition}>
+          {allBoards}
+          {pieces.map((piece) => {
+            const isJump = !!jumpingPieces[piece.id];
+            return piece.type === 'D' ? (
+              <PiecesDark
+                key={piece.id}
+                id={piece.id}
+                position={piece.position}
+                onClick={handlePieceClick}
+                isQueen={piece.isQueen}
+                isSelected={piece.id === selectedPieceId}
+                isJump={isJump}
+              />
+            ) : (
+              <PiecesLight
+                key={piece.id}
+                id={piece.id}
+                position={piece.position}
+                onClick={handlePieceClick}
+                isQueen={piece.isQueen}
+                isJump={isJump}
+              />
+            );
+          })}
+          {explosions.map((explosion) => (
+            <ExplosionEffect
+              key={explosion.id}
+              position={explosion.position}
+              onComplete={() => setExplosions((prev) => prev.filter((e) => e.id !== explosion.id))}
+            />
+          ))}
+        </group>
+
+        <OrbitControls />
+      </Canvas>
+
+      <ScoreCard
+        scoreDark={scoreDark}
+        scoreLight={scoreLight}
+        style={{ position: 'absolute', top: 60, left: 20 }}
+      />
+
+      <Pressable style={[styles.playAgainBtn, { position: 'absolute', bottom: 40, alignSelf: 'center' }]} onPress={handlePlayAgain}>
+        <RNText style={styles.playAgainText}>START AGAIN</RNText>
+      </Pressable>
+    </View>
   );
 }
 
-  export default GamePage;
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  gameOverText: { fontSize: 32, fontWeight: 'bold', marginBottom: 20 },
+  playAgainBtn: { backgroundColor: 'black', padding: 10, borderRadius: 5 },
+  playAgainText: { color: 'white', fontSize: 18 },
+});
+
+export default GamePage;

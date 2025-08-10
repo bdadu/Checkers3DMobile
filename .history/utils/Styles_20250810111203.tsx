@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
-export const backgroundImage = require('../assets/images/backgroundCover.png'); // vezi nota WebP mai jos
+export const backgroundImage = require('../assets/images/backgroundCover.webp'); // vezi nota WebP mai jos
 export const textCheckers = require('../assets/images/title.png');
 
 export const styles = StyleSheet.create({
@@ -57,11 +57,10 @@ export const styles = StyleSheet.create({
   },
   textCheckers: {
     width: "40%",
-    height: "auto",
-    borderRadius: 10,
-    marginBottom: 100,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-  });
+                        height: "auto",
+                        borderRadius: "10px",
+                        marginBottom: "100px",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+});

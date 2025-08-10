@@ -41,7 +41,7 @@ export default function HomePage() {
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
       <View style={styles.homeGrid}>
-        <Image source={textCheckers} style={styles.textCheckers} resizeMode="contain" />
+        <Image source={textCheckers} style={{
         <View style={{ width: 200, alignItems: 'center', marginTop: 24 }}>
           <CustomButton
             label="PLAY"

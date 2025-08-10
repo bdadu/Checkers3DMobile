@@ -8,9 +8,8 @@ import ExplosionEffect from './Components/ExplosionEffect/explosionEffect';
 import PiecesDark from './Components/PiecesDark';
 import PiecesLight from './Components/PiecesLight';
 import ScoreCard from './Components/ScoreCard';
-import { ImageBackground, View } from 'react-native';
-import { styles, backgroundImage } from '../../utils/Styles';
-import GameOver from '../../components/GameOver';
+import { Image, ImageBackground, View } from 'react-native';
+import { styles} from '../../utils/Styles';
 // 👇 ADĂUGAT: tip pentru prop
 type GamePageProps = { initialLevel?: 'Easy' | 'Medium' | 'Hard' };
 
@@ -154,14 +153,18 @@ function GamePage({ initialLevel }: GamePageProps) {
   if (isGameOver) {
     const winnerText = scoreDark > scoreLight ? 'WINNER' : 'YOU LOSE';
     return (
-      <GameOver
-        winnerText={winnerText}
-        onPlayAgain={handlePlayAgain}
-      />
+      <View style={styles.container}>
+        <View style={styles.centered}>
+          <RNText style={styles.gameOverText}>{winnerText}</RNText>
+          <Pressable style={styles.playAgainBtn} onPress={handlePlayAgain}>
+            <RNText style={styles.playAgainText}>START AGAIN</RNText>
+          </Pressable>
+        </View>
+      </View>
     );
   }
 
-  return (
+  rreturn (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
       <View style={styles.gameGrid} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
         <Canvas style={{ flex: 1 }} camera={{ position: [0, 3, 7], fov: 60 }}>
@@ -197,5 +200,5 @@ function GamePage({ initialLevel }: GamePageProps) {
     </ImageBackground>
   );
 }
-
+}
   export default GamePage;

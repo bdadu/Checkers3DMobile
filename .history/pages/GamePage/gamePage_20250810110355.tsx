@@ -10,7 +10,7 @@ import PiecesLight from './Components/PiecesLight';
 import ScoreCard from './Components/ScoreCard';
 import { ImageBackground, View } from 'react-native';
 import { styles, backgroundImage } from '../../utils/Styles';
-import GameOver from '../../components/GameOver';
+import GameOver from '@/components/GameOver';
 // 👇 ADĂUGAT: tip pentru prop
 type GamePageProps = { initialLevel?: 'Easy' | 'Medium' | 'Hard' };
 
@@ -154,10 +154,14 @@ function GamePage({ initialLevel }: GamePageProps) {
   if (isGameOver) {
     const winnerText = scoreDark > scoreLight ? 'WINNER' : 'YOU LOSE';
     return (
-      <GameOver
-        winnerText={winnerText}
-        onPlayAgain={handlePlayAgain}
-      />
+      <View style={styles.gameGrid}>
+        <View style={styles.gameGrid}>
+          <RNText style={GameOver}>{winnerText}</RNText>
+          <Pressable style={styles.startAgainButton} onPress={handlePlayAgain}>
+            <RNText style={styles.text}>START AGAIN</RNText>
+          </Pressable>
+        </View>
+      </View>
     );
   }
 
