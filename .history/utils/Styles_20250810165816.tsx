@@ -25,7 +25,8 @@ export const styles = StyleSheet.create({
   // Acest stil se aplică pe <ImageBackground />
   backgroundImage: {
     flex: 1,
-   
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   startAgainButton: {
@@ -39,8 +40,6 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    alignItems: 'center',
- 
   },
 
   text: {

@@ -18,14 +18,15 @@ export const styles = StyleSheet.create({
     //padding: 16,
     justifyContent: 'center',
     alignSelf: 'stretch',
-    width: '100%',
-    position: 'relative',
+  width: '100%',
+  position: 'relative',
   },
 
   // Acest stil se aplică pe <ImageBackground />
   backgroundImage: {
     flex: 1,
-   
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   startAgainButton: {
@@ -39,8 +40,6 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    alignItems: 'center',
- 
   },
 
   text: {
@@ -66,4 +65,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   }
-});
+  });

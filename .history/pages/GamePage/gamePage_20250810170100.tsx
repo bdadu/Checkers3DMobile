@@ -1,7 +1,7 @@
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei/native';
 import { Canvas } from '@react-three/fiber/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, Text as RNText, StyleSheet } from 'react-native';
+import { Pressable, Text as RNText, StyleSheet} from 'react-native';
 import GameLevelSelection from '@/components/GameLevelSelection';
 import { boardMatrices, generateInitialPieces, handleBotMove } from '@/utils/Functions';
 import ExplosionEffect from './Components/ExplosionEffect/explosionEffect';
@@ -27,7 +27,7 @@ function GamePage() {
   const { params } = useRoute<GameRouteProp>();
   const initialLevel = params?.initialLevel ?? null;
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(initialLevel ?? null);
-
+  
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<[number, number] | null>(null);
   const [groupPosition, setGroupPosition] = useState<[number, number, number]>([0, 0, 0]);
@@ -38,7 +38,7 @@ function GamePage() {
   const [isGameOver, setIsGameOver] = useState(false);
 
   // 👇 IMPORTANT: pornește cu nivelul primit din Home (dacă e)
-
+ 
 
   const [currentPlayer, setCurrentPlayer] = useState<'D' | 'L'>('D');
   const [explosions, setExplosions] = useState<any[]>([]);
@@ -176,11 +176,7 @@ function GamePage() {
 
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
-      <View
-        style={styles.gameGrid}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}>
+      <View style={styles.gameGrid} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
         <Canvas style={{ flex: 1 }} camera={{ position: [0, 3, 7], fov: 60 }}>
           <ambientLight intensity={0.9} />
           <directionalLight position={[5, 10, 5]} intensity={0.6} />
@@ -203,17 +199,16 @@ function GamePage() {
           </group>
           <OrbitControls />
         </Canvas>
-
+  
         <ScoreCard scoreDark={scoreDark} scoreLight={scoreLight}
           style={{ position: 'absolute', top: 60, left: 20 }} />
-        <View style={{ position: 'absolute', bottom: 40, left: 0, right: 0, alignItems: 'center' }}>
-          <Pressable style={[styles.startAgainButton, { position: 'absolute', bottom: 40 }]} onPress={handlePlayAgain}>
-            <RNText style={styles.text}>START AGAIN</RNText>
-          </Pressable>
-        </View>
+  
+        <Pressable style={[styles.startAgainButton, { position: 'absolute', bottom: 40 }]} onPress={handlePlayAgain}>
+          <RNText style={styles.text}>START AGAIN</RNText>
+        </Pressable>
       </View>
-    </ImageBackground >
+    </ImageBackground>
   );
 }
 
-export default GamePage;
+  export default GamePage;

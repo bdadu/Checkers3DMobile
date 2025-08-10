@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, TouchableOpacity,StyleProp, ViewStyle } from 'react-native';
-import Colors from '../constants/Colors';
+import
 
 interface BackButtonProps {
   onPress: () => void;
@@ -15,7 +15,7 @@ const BackButton: React.FC<BackButtonProps> = ({ onPress, style }) => (
     accessibilityLabel="Back"
     activeOpacity={0.7}
   >
-    <Ionicons name="arrow-back-circle" size={40} color={Colors.gray.lightGray} />
+    <Ionicons name="arrow-back-circle" size={40} color="#D6C0B3" />
   </TouchableOpacity>
 );
 

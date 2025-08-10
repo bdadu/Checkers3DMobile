@@ -15,17 +15,17 @@ export const styles = StyleSheet.create({
 
   gameGrid: {
     flex: 1,
-    //padding: 16,
+    padding: 16,
     justifyContent: 'center',
-    alignSelf: 'stretch',
-    width: '100%',
-    position: 'relative',
+    alignItems: 'center',
+    // ❌ NU: backgroundImage: backgroundImage
   },
 
   // Acest stil se aplică pe <ImageBackground />
   backgroundImage: {
     flex: 1,
-   
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   startAgainButton: {
@@ -39,8 +39,6 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    alignItems: 'center',
- 
   },
 
   text: {
@@ -60,10 +58,11 @@ export const styles = StyleSheet.create({
   textCheckers: {
     width: 240,          // dă-i valori numerice
     height: 80,
+    height: "auto",
     borderRadius: 10,
     marginBottom: 100,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   }
-});
+  });

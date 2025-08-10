@@ -206,11 +206,11 @@ function GamePage() {
 
         <ScoreCard scoreDark={scoreDark} scoreLight={scoreLight}
           style={{ position: 'absolute', top: 60, left: 20 }} />
-        <View style={{ position: 'absolute', bottom: 40, left: 0, right: 0, alignItems: 'center' }}>
-          <Pressable style={[styles.startAgainButton, { position: 'absolute', bottom: 40 }]} onPress={handlePlayAgain}>
-            <RNText style={styles.text}>START AGAIN</RNText>
-          </Pressable>
-        </View>
+        <View style={{ position: 'absolute', bottom: 40, left: 0, right: 0, alignItems: 'center' }}><
+        <Pressable style={[styles.startAgainButton, { position: 'absolute', bottom: 40 }]} onPress={handlePlayAgain}>
+          <RNText style={styles.text}>START AGAIN</RNText>
+        </Pressable>
+      </View>
       </View>
     </ImageBackground >
   );

@@ -21,7 +21,7 @@ const GameLevelSelection: React.FC = () => {
         <CustomButton label="Hard" handleClick={() => navigation.navigate('Game', { initialLevel: 'Hard' })} backgroundColor="#493628" width={160} />
         <BackButton
           onPress={() => navigation.goBack()}
-          style={{ position: 'absolute', top: 90, left: 20, zIndex: 1000 }}
+          style={{ position: 'absolute', top: 40, left: 40, zIndex: 1000 }}
         />
       </View>
     </ImageBackground>

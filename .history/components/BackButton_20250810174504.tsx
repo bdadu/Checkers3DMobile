@@ -15,7 +15,7 @@ const BackButton: React.FC<BackButtonProps> = ({ onPress, style }) => (
     accessibilityLabel="Back"
     activeOpacity={0.7}
   >
-    <Ionicons name="arrow-back-circle" size={40} color={Colors.gray.lightGray} />
+    <Ionicons name="arrow-back-circle" size={40} color={Colors.gray.ligt} />
   </TouchableOpacity>
 );
 
