@@ -1,15 +1,16 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from 'navigation/types';
-import React from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
-import CustomButton from './CustomButton';
+import type { RootStackParamList } from '@/App';
 import BackButton from './BackButton';
-import { styles, backgroundImage } from '@/utils/Styles';
+import CustomButton from './CustomButton';
 
 
-export default function GameLevelSelection() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+type Nav = NativeStackNavigationProp<RootStackParamList, 'GameLevelSelection'>;
+
+const GameLevelSelection: React.FC = () => {
+  const navigation = useNavigation<Nav>();
 
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
@@ -26,4 +27,19 @@ export default function GameLevelSelection() {
   );
 };
 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     padding: 16,
+//     backgroundColor: 'transparent',
+//   },
+//   backButton: {
+//     position: 'absolute',
+//     bottom: 40,
+//     left: 40,
+// },
+// });
 
+export default GameLevelSelection;

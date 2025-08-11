@@ -147,12 +147,7 @@ function GamePage() {
   const onTouchEnd = () => setIsDragging(false);
 
   const handlePlayAgain = useCallback(() => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [{ name: 'Home' }, { name: 'GameLevelSelection' }],
-      })
-    );
+    navigation.replace('GameLevelSelection');
   }, [navigation]);
 
   useEffect(() => {

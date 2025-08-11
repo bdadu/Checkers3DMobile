@@ -13,16 +13,20 @@ import { styles, backgroundImage } from '@/utils/Styles';
 import GameOver from '@/components/GameOver';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '@/App';
-import { CommonActions } from '@react-navigation/native';
+
 
 type Level = 'Easy' | 'Medium' | 'Hard';
+
+// Definim paramii ecranului "Game"
+type RootStackParamList = {
+  Game: { initialLevel?: Level } | undefined;
+};
 
 type GameRouteProp = RouteProp<RootStackParamList, 'Game'>;
 
 function GamePage() {
 
-  const { params } = useRoute<RouteProp<RootStackParamList, 'Game'>>();
+  const { params } = useRoute<GameRouteProp>();
   const initialLevel = params?.initialLevel ?? null;
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(initialLevel ?? null);
 
@@ -37,7 +41,6 @@ function GamePage() {
   const [currentPlayer, setCurrentPlayer] = useState<'D' | 'L'>('D');
   const [explosions, setExplosions] = useState<any[]>([]);
   const [jumpingPieces, setJumpingPieces] = useState<Record<string, boolean>>({});
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const [pieces, setPieces] = useState<any[]>([]);
 
@@ -147,26 +150,18 @@ function GamePage() {
   const onTouchEnd = () => setIsDragging(false);
 
   const handlePlayAgain = useCallback(() => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [{ name: 'Home' }, { name: 'GameLevelSelection' }],
-      })
-    );
-  }, [navigation]);
+    setIsGameOver(false);
+    setScoreDark(0);
+    setScoreLight(0);
+    setSelectedLevel(null);
+    setCurrentPlayer('D');
+    resetPiecesToStart();
+  }, [resetPiecesToStart]);
 
-  useEffect(() => {
-    if (!selectedLevel) {
-      navigation.replace('GameLevelSelection');
-    }
-  }, [selectedLevel, navigation]);
- 
-  useEffect(() => {
-    if (initialLevel) {
-      setSelectedLevel(initialLevel);
-    }
-  }, [initialLevel]);
-  
+  if (!selectedLevel) {
+    return <GameLevelSelection />; // ⬅️ fără onSelectLevel / onBack
+  }
+
   if (isGameOver) {
     const winnerText = scoreDark > scoreLight ? 'WINNER' : 'YOU LOSE';
     return (

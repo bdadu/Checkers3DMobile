@@ -14,9 +14,9 @@ import GameOver from '@/components/GameOver';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/App';
-import { CommonActions } from '@react-navigation/native';
 
 type Level = 'Easy' | 'Medium' | 'Hard';
+
 
 type GameRouteProp = RouteProp<RootStackParamList, 'Game'>;
 
@@ -147,12 +147,7 @@ function GamePage() {
   const onTouchEnd = () => setIsDragging(false);
 
   const handlePlayAgain = useCallback(() => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [{ name: 'Home' }, { name: 'GameLevelSelection' }],
-      })
-    );
+    navigation.replace('GameLevelSelection');
   }, [navigation]);
 
   useEffect(() => {

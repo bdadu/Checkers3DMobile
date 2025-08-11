@@ -8,8 +8,10 @@ import BackButton from './BackButton';
 import { styles, backgroundImage } from '@/utils/Styles';
 
 
-export default function GameLevelSelection() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+type Nav = NativeStackNavigationProp<RootStackParamList, 'GameLevelSelection'>;
+
+const GameLevelSelection: React.FC = () => {
+  const navigation = useNavigation<Nav>();
 
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
@@ -26,4 +28,19 @@ export default function GameLevelSelection() {
   );
 };
 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     padding: 16,
+//     backgroundColor: 'transparent',
+//   },
+//   backButton: {
+//     position: 'absolute',
+//     bottom: 40,
+//     left: 40,
+// },
+// });
 
+export default GameLevelSelection;

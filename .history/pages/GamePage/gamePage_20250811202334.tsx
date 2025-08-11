@@ -13,16 +13,20 @@ import { styles, backgroundImage } from '@/utils/Styles';
 import GameOver from '@/components/GameOver';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '@/App';
-import { CommonActions } from '@react-navigation/native';
+
 
 type Level = 'Easy' | 'Medium' | 'Hard';
+
+// Definim paramii ecranului "Game"
+type RootStackParamList = {
+  Game: { initialLevel?: Level } | undefined;
+};
 
 type GameRouteProp = RouteProp<RootStackParamList, 'Game'>;
 
 function GamePage() {
 
-  const { params } = useRoute<RouteProp<RootStackParamList, 'Game'>>();
+  
   const initialLevel = params?.initialLevel ?? null;
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(initialLevel ?? null);
 
@@ -147,12 +151,7 @@ function GamePage() {
   const onTouchEnd = () => setIsDragging(false);
 
   const handlePlayAgain = useCallback(() => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [{ name: 'Home' }, { name: 'GameLevelSelection' }],
-      })
-    );
+    navigation.replace('GameLevelSelection');
   }, [navigation]);
 
   useEffect(() => {
