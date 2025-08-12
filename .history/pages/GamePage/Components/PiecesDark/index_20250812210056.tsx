@@ -39,10 +39,10 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
   useFrame(() => {
     if (animRef.current.jumping && meshRef.current) {
       const { start, end, startTime } = animRef.current;
-      const duration = 800;
+      const duration = 1500;
       const elapsed = Date.now() - startTime;
       const t = Math.min(elapsed / duration, 1);
-      const peakY = start[1] + 1.5;
+      const peakY = start[1] + 0.8;
       const x = lerp(start[0], end[0], t);
       const z = lerp(start[2], end[2], t);
       const y = t < 0.5

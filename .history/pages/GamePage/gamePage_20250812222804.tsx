@@ -1,94 +1,23 @@
 import { Canvas, useFrame } from '@react-three/fiber/native';
 // OrbitControls poate intra în conflict cu gesturile native; îl scoatem
 // import { OrbitControls } from '@react-three/drei';
-import type { RootStackParamList } from '@/App';
-import GameOver from '@/components/GameOver';
-import { boardMatrices, generateInitialPieces, handleBotMove } from '@/utils/Functions';
-import { backgroundImage, styles } from '@/utils/Styles';
-import { CommonActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ImageBackground, Pressable, Text as RNText, View } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { useSharedValue } from 'react-native-reanimated';
+import { Pressable, Text as RNText, StyleSheet } from 'react-native';
+import GameLevelSelection from '@/components/GameLevelSelection';
+import { boardMatrices, generateInitialPieces, handleBotMove } from '@/utils/Functions';
 import ExplosionEffect from './Components/ExplosionEffect/explosionEffect';
 import PiecesDark from './Components/PiecesDark';
 import PiecesLight from './Components/PiecesLight';
 import ScoreCard from './Components/ScoreCard';
-
-// Componentă internă care stă sub <Canvas> și poate folosi R3F hooks
-function BoardGroup({
-  position,
-  allBoards,
-  pieces,
-  selectedPieceId,
-  jumpingPieces,
-  explosions,
-  setExplosions,
-  handlePieceClick,
-  rotX,
-  rotY,
-  scaleSV,
-}: {
-  position: [number, number, number];
-  allBoards: React.ReactNode;
-  pieces: any[];
-  selectedPieceId: string | null;
-  jumpingPieces: Record<string, boolean>;
-  explosions: any[];
-  setExplosions: React.Dispatch<React.SetStateAction<any[]>>;
-  handlePieceClick: (id: string) => void;
-  rotX: Animated.SharedValue<number>;
-  rotY: Animated.SharedValue<number>;
-  scaleSV: Animated.SharedValue<number>;
-}) {
-  const groupRef = useRef<any>(null);
-
-  useFrame(() => {
-    if (!groupRef.current) return;
-    const g = groupRef.current;
-    g.rotation.x = rotX.value;
-    g.rotation.y = rotY.value;
-    const s = scaleSV.value;
-    g.scale.set(s, s, s);
-  });
-
-  return (
-    <group ref={groupRef} position={position}>
-      {allBoards}
-      {pieces.map((piece) => {
-        const isJump = !!jumpingPieces[piece.id];
-        return piece.type === 'D' ? (
-          <PiecesDark
-            key={piece.id}
-            id={piece.id}
-            position={piece.position}
-            onClick={handlePieceClick}
-            isQueen={piece.isQueen}
-            isSelected={piece.id === selectedPieceId}
-            isJump={isJump}
-          />
-        ) : (
-          <PiecesLight
-            key={piece.id}
-            id={piece.id}
-            position={piece.position}
-            onClick={handlePieceClick}
-            isQueen={piece.isQueen}
-            isJump={isJump}
-          />
-        );
-      })}
-      {explosions.map((explosion) => (
-        <ExplosionEffect
-          key={explosion.id}
-          position={explosion.position}
-          onComplete={() => setExplosions((prev) => prev.filter((e) => e.id !== explosion.id))}
-        />
-      ))}
-    </group>
-  );
-}
+import { ImageBackground, View } from 'react-native';
+import { styles, backgroundImage } from '@/utils/Styles';
+import GameOver from '@/components/GameOver';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '@/App';
+import { CommonActions } from '@react-navigation/native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, { useSharedValue } from 'react-native-reanimated';
 
 type Level = 'Easy' | 'Medium' | 'Hard';
 
@@ -114,7 +43,7 @@ function GamePage() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const [pieces, setPieces] = useState<any[]>([]);
-  // groupRef mutat în BoardGroup
+  const groupRef = useRef<any>(null);
 
   const size = 8;
   const squareSize = 0.5;
@@ -205,8 +134,6 @@ function GamePage() {
 
   // touch pan pt. mutat tabla
   const onTouchStart = (e: any) => {
-    // Translatarea tablei doar cu două degete, ca să nu intre în conflict cu rotirea cu un deget
-    if ((e.nativeEvent.touches?.length ?? 0) < 2) return;
     const t = e.nativeEvent.touches?.[0];
     if (!t) return;
     setIsDragging(true);
@@ -214,7 +141,6 @@ function GamePage() {
   };
   const onTouchMove = (e: any) => {
     if (!isDragging || !dragStart) return;
-    if ((e.nativeEvent.touches?.length ?? 0) < 2) return;
     const t = e.nativeEvent.touches?.[0];
     if (!t) return;
     const dx = t.pageX - dragStart[0];
@@ -242,29 +168,17 @@ function GamePage() {
       scaleSV.value = s;
     });
 
-  // Rotire cu un singur deget (drag orizontal)
-  const baseRotX = useSharedValue(0);
-  const baseRotY = useSharedValue(0);
-  const panRotate = Gesture.Pan()
-    .maxPointers(1)
-    .onStart(() => {
-      baseRotX.value = rotX.value;
-      baseRotY.value = rotY.value;
-    })
-    .onUpdate((e) => {
-      // Sensibilitate: 0.01 radiani per pixel pe Y, 0.008 pe X
-      const newY = baseRotY.value + e.translationX * 0.01;
-      let newX = baseRotX.value + e.translationY * 0.008;
-      // Clamp X pentru a evita răsturnarea (±60°)
-      const MAX_X = Math.PI / 3;
-      const MIN_X = -Math.PI / 3;
-      if (newX > MAX_X) newX = MAX_X;
-      if (newX < MIN_X) newX = MIN_X;
-      rotY.value = newY;
-      rotX.value = newX;
-    });
+  const composedGesture = Gesture.Simultaneous(rotationGesture, pinchGesture);
 
-  const composedGesture = Gesture.Simultaneous(rotationGesture, pinchGesture, panRotate);
+  // Aplică în fiecare frame rotația și scala direct pe groupRef pentru fluiditate
+  useFrame(() => {
+    if (!groupRef.current) return;
+    const g = groupRef.current;
+    g.rotation.x = rotX.value;
+    g.rotation.y = rotY.value;
+    const s = scaleSV.value;
+    g.scale.set(s, s, s);
+  });
 
   const handlePlayAgain = useCallback(() => {
     navigation.dispatch(
@@ -309,19 +223,23 @@ function GamePage() {
             <Canvas style={{ flex: 1 }} camera={{ position: [0, 3, 7], fov: 60 }}>
               <ambientLight intensity={0.9} />
               <directionalLight position={[5, 10, 5]} intensity={0.6} />
-              <BoardGroup
-                position={groupPosition}
-                allBoards={allBoards}
-                pieces={pieces}
-                selectedPieceId={selectedPieceId}
-                jumpingPieces={jumpingPieces}
-                explosions={explosions}
-                setExplosions={setExplosions}
-                handlePieceClick={handlePieceClick}
-                rotX={rotX}
-                rotY={rotY}
-                scaleSV={scaleSV}
-              />
+              <group ref={groupRef} position={groupPosition}>
+                {allBoards}
+                {pieces.map((piece) => {
+                  const isJump = !!jumpingPieces[piece.id];
+                  return piece.type === 'D' ? (
+                    <PiecesDark key={piece.id} id={piece.id} position={piece.position} onClick={handlePieceClick}
+                      isQueen={piece.isQueen} isSelected={piece.id === selectedPieceId} isJump={isJump} />
+                  ) : (
+                    <PiecesLight key={piece.id} id={piece.id} position={piece.position} onClick={handlePieceClick}
+                      isQueen={piece.isQueen} isJump={isJump} />
+                  );
+                })}
+                {explosions.map((explosion) => (
+                  <ExplosionEffect key={explosion.id} position={explosion.position}
+                    onComplete={() => setExplosions(prev => prev.filter(e => e.id !== explosion.id))} />
+                ))}
+              </group>
               {/* <OrbitControls /> eliminat pentru a evita conflicte cu gesturile native */}
             </Canvas>
           </View>

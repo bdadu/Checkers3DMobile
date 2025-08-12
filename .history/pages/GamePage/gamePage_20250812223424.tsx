@@ -26,7 +26,6 @@ function BoardGroup({
   explosions,
   setExplosions,
   handlePieceClick,
-  rotX,
   rotY,
   scaleSV,
 }: {
@@ -38,7 +37,6 @@ function BoardGroup({
   explosions: any[];
   setExplosions: React.Dispatch<React.SetStateAction<any[]>>;
   handlePieceClick: (id: string) => void;
-  rotX: Animated.SharedValue<number>;
   rotY: Animated.SharedValue<number>;
   scaleSV: Animated.SharedValue<number>;
 }) {
@@ -47,7 +45,6 @@ function BoardGroup({
   useFrame(() => {
     if (!groupRef.current) return;
     const g = groupRef.current;
-    g.rotation.x = rotX.value;
     g.rotation.y = rotY.value;
     const s = scaleSV.value;
     g.scale.set(s, s, s);
@@ -225,7 +222,6 @@ function GamePage() {
   const onTouchEnd = () => setIsDragging(false);
 
   // Gesturi pentru rotire + pinch/scale pe întreg grupul (tabla + piese)
-  const rotX = useSharedValue(0);
   const rotY = useSharedValue(0);
   const scaleSV = useSharedValue(1);
 
@@ -243,25 +239,15 @@ function GamePage() {
     });
 
   // Rotire cu un singur deget (drag orizontal)
-  const baseRotX = useSharedValue(0);
   const baseRotY = useSharedValue(0);
   const panRotate = Gesture.Pan()
     .maxPointers(1)
     .onStart(() => {
-      baseRotX.value = rotX.value;
       baseRotY.value = rotY.value;
     })
     .onUpdate((e) => {
-      // Sensibilitate: 0.01 radiani per pixel pe Y, 0.008 pe X
-      const newY = baseRotY.value + e.translationX * 0.01;
-      let newX = baseRotX.value + e.translationY * 0.008;
-      // Clamp X pentru a evita răsturnarea (±60°)
-      const MAX_X = Math.PI / 3;
-      const MIN_X = -Math.PI / 3;
-      if (newX > MAX_X) newX = MAX_X;
-      if (newX < MIN_X) newX = MIN_X;
-      rotY.value = newY;
-      rotX.value = newX;
+      // Sensibilitate: 0.01 radiani per pixel
+      rotY.value = baseRotY.value + e.translationX * 0.01;
     });
 
   const composedGesture = Gesture.Simultaneous(rotationGesture, pinchGesture, panRotate);
@@ -318,7 +304,6 @@ function GamePage() {
                 explosions={explosions}
                 setExplosions={setExplosions}
                 handlePieceClick={handlePieceClick}
-                rotX={rotX}
                 rotY={rotY}
                 scaleSV={scaleSV}
               />
