@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
-import { Vector3 } from 'three';
 import Colors from '../../../../constants/Colors';
+import { Vector3 } from 'three';
 
 interface PiecesDarkProps {
   id: string;

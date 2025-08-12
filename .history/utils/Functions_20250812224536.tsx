@@ -117,10 +117,9 @@ export const handleBotMove = (
     setCurrentPlayer: any
 ) => {
     const botMove = BotLogic.makeMove(selectedLevel as 'Hard' | 'Medium' | 'Easy', piecesRef.current, currentPlayerRef.current, size, squareSize, boardsY);
-        if (botMove) {
-        	if (botMove.isCapture) {
+    if (botMove) {
+        if (botMove.isCapture) {
             setJumpingPieces((prev: any) => ({ ...prev, [botMove.pieceId]: true }));
-            // Sincronizat cu animația pieselor: 1000ms
             setTimeout(() => {
                 setJumpingPieces((prev: any) => {
                     const updated = { ...prev };
