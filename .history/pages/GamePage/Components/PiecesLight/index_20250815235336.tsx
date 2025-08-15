@@ -1,22 +1,24 @@
 import { useFrame } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
-import { DoubleSide, Vector3 } from 'three';
 import Colors from '../../../../constants/Colors';
+import { DoubleSide, Vector3 } from 'three';
 
 
-interface PiecesDarkProps {
+interface PiecesLightProps {
   id: string;
   position: [number, number, number];
   onClick: (id: string) => void;
   isQueen?: boolean;
+  isBotMoving?: boolean;
   isJump?: boolean;
-  isSelected?: boolean;
 }
 
+// Aliniat cu implementarea pentru PiecesDark
 const DURATION = 1.0; // secunde, sincronizat cu timeout-ul isJump (1000ms)
 const ARC_HEIGHT = 1.0; // înălțimea arcului
 
 const bezier2 = (a: Vector3, b: Vector3, c: Vector3, t: number, out: Vector3) => {
+  // (1-t)^2 * a + 2(1-t)t * b + t^2 * c
   const s = 1 - t;
   out.set(
     s * s * a.x + 2 * s * t * b.x + t * t * c.x,
@@ -26,7 +28,7 @@ const bezier2 = (a: Vector3, b: Vector3, c: Vector3, t: number, out: Vector3) =>
   return out;
 };
 
-const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen, isJump, isSelected }) => {
+const PiecesLight: React.FC<PiecesLightProps> = ({ id, position, onClick, isQueen, isBotMoving, isJump }) => {
   const meshRef = useRef<any>(null);
   const lastPosRef = useRef(new Vector3(...position));
   const animRef = useRef({
@@ -43,12 +45,13 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
     if (!meshRef.current) return;
 
     if (isJump) {
+      // Start din ultima pozitie reală, pentru a evita „teleport”-ul
       const start = lastPosRef.current.clone();
       const end = new Vector3(...position);
       const ctrl = start.clone().lerp(end, 0.5);
       ctrl.y += ARC_HEIGHT;
 
-      // Reset poziția vizuală la start ca să evităm „teleport” la target
+      // Resetăm poziția vizuală la start înainte de animare
       meshRef.current.position.copy(start);
 
       animRef.current = {
@@ -60,7 +63,7 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
         ctrl,
       };
     } else {
-      // Mutare simplă sau idle: setează poziția și memorează ca „ultima poziție”
+      // Mutare simplă sau idle: setăm poziția și memorăm ca „ultima poziție”
       meshRef.current.position.set(...position);
       lastPosRef.current.set(position[0], position[1], position[2]);
       animRef.current.jumping = false;
@@ -70,13 +73,14 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
 
   useFrame((_, delta) => {
     if (!meshRef.current) return;
+
     const a = animRef.current;
     if (!a.jumping) return;
 
-    // avansează timpul în funcție de delta (FPS independent)
+    // avansăm timpul în funcție de delta (FPS independent)
     a.t = Math.min(1, a.t + delta / a.duration);
 
-    // easing ușor (easeInOutQuad)
+    // Easing ușor (easeInOutQuad)
     const t = a.t < 0.5 ? 2 * a.t * a.t : -1 + (4 - 2 * a.t) * a.t;
 
     bezier2(a.start, a.ctrl, a.end, t, tmp.current);
@@ -93,36 +97,26 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
     <mesh
       ref={meshRef}
       position={position}
-      onPointerDown={(e) => {
-        e.stopPropagation();
-        onClick(id);
-      }}
+      onPointerDown={(e) => { e.stopPropagation(); onClick(id); }}
     >
       <cylinderGeometry args={[0.2, 0.2, 0.1, 32]} />
-      <meshStandardMaterial
-        color={isSelected ? Colors.brown.brown : Colors.brown.darkBrown}
-        transparent
-        opacity={0.8}
-        emissive={isSelected ? Colors.brown.brown : '#6e3a2a'}
-        emissiveIntensity={isSelected ? 1.5 : 0}
-      />
+      <meshStandardMaterial color={Colors.white.lightWhite} transparent opacity={1} />
       {isQueen && (
         <mesh position={[0, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.11, 0.15, 48]} />
-          <meshStandardMaterial
-            color={'#FFD54A'}
-            emissive={'#9E7400'}
-            emissiveIntensity={1.1}
-            metalness={0.9}
-            roughness={0.25}
-            transparent
-            opacity={0.95}
-            side={DoubleSide}   // <- important
-          />
-        </mesh>
+    <ringGeometry args={[0.11, 0.15, 48]} />
+    <meshStandardMaterial
+      color={'#FFD54A'}
+      emissive={'#9E7400'}
+      emissiveIntensity={1.1}
+      metalness={0.9}
+      roughness={0.25}
+      transparent
+      opacity={0.95}
+      side={DoubleSide}   // <- important
+    />
+  </mesh>
       )}
     </mesh>
   );
 };
-
-export default PiecesDark;
+export default PiecesLight;

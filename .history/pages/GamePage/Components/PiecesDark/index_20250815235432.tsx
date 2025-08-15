@@ -1,8 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
-import { DoubleSide, Vector3 } from 'three';
+import { Vector3 } from 'three';
 import Colors from '../../../../constants/Colors';
-
 
 interface PiecesDarkProps {
   id: string;
@@ -107,19 +106,19 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
         emissiveIntensity={isSelected ? 1.5 : 0}
       />
       {isQueen && (
-        <mesh position={[0, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.11, 0.15, 48]} />
-          <meshStandardMaterial
-            color={'#FFD54A'}
-            emissive={'#9E7400'}
-            emissiveIntensity={1.1}
-            metalness={0.9}
-            roughness={0.25}
-            transparent
-            opacity={0.95}
-            side={DoubleSide}   // <- important
-          />
-        </mesh>
+       <mesh position={[0, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+                 <ringGeometry args={[0.11, 0.15, 48]} />
+                 <meshStandardMaterial
+                   color={'#FFD54A'}
+                   emissive={'#9E7400'}
+                   emissiveIntensity={1.1}
+                   metalness={0.9}
+                   roughness={0.25}
+                   transparent
+                   opacity={0.95}
+                   side={DoubleSide}   // <- important
+                 />
+               </mesh>
       )}
     </mesh>
   );

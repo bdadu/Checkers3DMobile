@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
 import { DoubleSide, Vector3 } from 'three';
 import Colors from '../../../../constants/Colors';
-
+import { Text } from '@react-three/drei';
 
 interface PiecesDarkProps {
   id: string;
@@ -25,7 +25,31 @@ const bezier2 = (a: Vector3, b: Vector3, c: Vector3, t: number, out: Vector3) =>
   );
   return out;
 };
-
+type Vec3 = [number, number, number];
+export function QueenMark({ position = [0, 0.12, 0] as Vec3,   // <- tuplu, nu number[]
+}: { position?: Vec3 }) {
+  return (
+    <Text
+      position={position}
+      fontSize={0.25}     // mărimea literei
+      color="#FFD54A"     // aur cald
+      anchorX="center"
+      anchorY="middle"
+    >
+      Q
+      <meshStandardMaterial
+        attach="material"
+        color={'#FFD54A'}       // culoarea de bază: auriu
+        emissive={'#FFB300'}    // glow portocaliu-auriu
+        emissiveIntensity={1.4} // strălucire premium
+        metalness={0.85}        // foarte metalic
+        roughness={0.2}         // lucios, dar nu oglindă perfectă
+        transparent
+        opacity={0.98}          // ușor soft, nu 100% solid
+      />
+    </Text>
+  );
+}
 const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen, isJump, isSelected }) => {
   const meshRef = useRef<any>(null);
   const lastPosRef = useRef(new Vector3(...position));
@@ -107,19 +131,7 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
         emissiveIntensity={isSelected ? 1.5 : 0}
       />
       {isQueen && (
-        <mesh position={[0, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.11, 0.15, 48]} />
-          <meshStandardMaterial
-            color={'#FFD54A'}
-            emissive={'#9E7400'}
-            emissiveIntensity={1.1}
-            metalness={0.9}
-            roughness={0.25}
-            transparent
-            opacity={0.95}
-            side={DoubleSide}   // <- important
-          />
-        </mesh>
+       <QueenMark position={[0, 0.12, 0]} />
       )}
     </mesh>
   );

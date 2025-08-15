@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import { DoubleSide, Vector3 } from 'three';
 import Colors from '../../../../constants/Colors';
 
-
 interface PiecesDarkProps {
   id: string;
   position: [number, number, number];

@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
 import { DoubleSide, Vector3 } from 'three';
 import Colors from '../../../../constants/Colors';
-
+import { Text } from '@react-three/drei';
 
 interface PiecesDarkProps {
   id: string;
@@ -25,6 +25,7 @@ const bezier2 = (a: Vector3, b: Vector3, c: Vector3, t: number, out: Vector3) =>
   );
   return out;
 };
+
 
 const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen, isJump, isSelected }) => {
   const meshRef = useRef<any>(null);
