@@ -129,8 +129,8 @@ function GamePage() {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<[number, number] | null>(null);
   // Offset negativ pe axa Z pentru a împinge tabla puțin mai în spate în poziția finală
-  const BOARD_Z_OFFSET = -3; // ajustează aici cât de mult vrei (ex: -1, -1.5, -3)
-  const [groupPosition, setGroupPosition] = useState<[number, number, number]>([0.2, 0, BOARD_Z_OFFSET]);
+  const BOARD_Z_OFFSET = -2; // ajustează aici cât de mult vrei (ex: -1, -1.5, -3)
+  const [groupPosition, setGroupPosition] = useState<[number, number, number]>([0, 0, BOARD_Z_OFFSET]);
 
   const [selectedPieceId, setSelectedPieceId] = useState<string | null>(null);
   const [scoreDark, setScoreDark] = useState(0);

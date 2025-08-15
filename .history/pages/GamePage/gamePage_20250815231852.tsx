@@ -128,9 +128,7 @@ function GamePage() {
 
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<[number, number] | null>(null);
-  // Offset negativ pe axa Z pentru a împinge tabla puțin mai în spate în poziția finală
-  const BOARD_Z_OFFSET = -3; // ajustează aici cât de mult vrei (ex: -1, -1.5, -3)
-  const [groupPosition, setGroupPosition] = useState<[number, number, number]>([0.2, 0, BOARD_Z_OFFSET]);
+  const [groupPosition, setGroupPosition] = useState<[number, number, number]>([0, 0, 0]);
 
   const [selectedPieceId, setSelectedPieceId] = useState<string | null>(null);
   const [scoreDark, setScoreDark] = useState(0);
@@ -247,11 +245,7 @@ function GamePage() {
     if (!t) return;
     const dx = t.pageX - dragStart[0];
     const dz = t.pageY - dragStart[1];
-    setGroupPosition(([x, y, z]) => [
-      x + dx * 0.01,
-      0,
-      z + dz * 0.01
-    ]);
+    setGroupPosition(([x, y, z]) => [x + dx * 0.01, 0, z + dz * 0.01]);
     setDragStart([t.pageX, t.pageY]);
   };
   const onTouchEnd = () => setIsDragging(false);
