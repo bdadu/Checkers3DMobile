@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import PlayAgain from './PlayAgain';
 import { styles, backgroundImage } from '../utils/Styles';
-import { ImageBackground } from 'react-native';
 
 
 interface GameOverProps {
@@ -20,7 +19,6 @@ const GameOver: React.FC<GameOverProps> = ({ onPlayAgain, winnerText }) => {
       <Text style={styles.winner}>{winnerText}</Text>
       <PlayAgain onPress={onPlayAgain} />
     </View>
-    </ImageBackground>
   );
 };
 

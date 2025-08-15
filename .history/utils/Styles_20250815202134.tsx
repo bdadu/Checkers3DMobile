@@ -65,8 +65,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  
+  }
   gameOver: {
     flex: 1,
     justifyContent: 'center',
@@ -81,7 +80,6 @@ export const styles = StyleSheet.create({
     color: Colors.brown.darkBrown,
     textAlign: 'center',
   },
-  
   winner: {
     fontSize: 35,
     color: Colors.brown.darkBrown,

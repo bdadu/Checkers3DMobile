@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   // Acest stil se aplică pe <ImageBackground />
   backgroundImage: {
     flex: 1,
-
+   
   },
 
   startAgainButton: {
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     alignItems: 'center',
-
+ 
   },
 
   text: {
@@ -65,29 +65,27 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  
-  gameOver: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    gap: 1, // Reduce distanța între elemente (gap nu e standard, dar RN 0.71+ îl suportă)
-  },
-  
-  title: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: Colors.brown.darkBrown,
-    textAlign: 'center',
-  },
-  
-  winner: {
-    fontSize: 35,
-    color: Colors.brown.darkBrown,
-    marginVertical: 10,
-    textAlign: 'center',
-    fontWeight: '600',
-  },
-
+  }
+  gameOver:{
+   
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        gap: 1, // Reduce distanța între elemente (gap nu e standard, dar RN 0.71+ îl suportă)
+      },
+      title: {
+        fontSize: 48,
+        fontWeight: 'bold',
+        color: Colors.brown.darkBrown,
+        textAlign: 'center',
+      },
+      winner: {
+        fontSize: 35,
+        color: Colors.brown.darkBrown,
+        marginVertical: 10,
+        textAlign: 'center',
+        fontWeight: '600',
+      },
+  }
 });

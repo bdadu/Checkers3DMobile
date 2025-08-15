@@ -65,9 +65,8 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  
-  gameOver: {
+  }
+  gameover: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

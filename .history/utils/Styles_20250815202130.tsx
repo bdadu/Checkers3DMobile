@@ -65,8 +65,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  
+  }
   gameOver: {
     flex: 1,
     justifyContent: 'center',
@@ -74,14 +73,12 @@ export const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     gap: 1, // Reduce distanța între elemente (gap nu e standard, dar RN 0.71+ îl suportă)
   },
-  
   title: {
     fontSize: 48,
     fontWeight: 'bold',
     color: Colors.brown.darkBrown,
     textAlign: 'center',
   },
-  
   winner: {
     fontSize: 35,
     color: Colors.brown.darkBrown,
