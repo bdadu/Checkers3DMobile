@@ -16,10 +16,6 @@ import PiecesDark from './Components/PiecesDark';
 import PiecesLight from './Components/PiecesLight';
 import ScoreCard from './Components/ScoreCard';
 
-// Domain types
-interface Piece { id: string; position: [number, number, number]; type: 'D' | 'L'; isQueen?: boolean; }
-interface Explosion { id: string; position: [number, number, number]; }
-
 // Componentă internă care stă sub <Canvas> și poate folosi R3F hooks
 function BoardGroup({
   position,
@@ -141,6 +137,8 @@ function GamePage() {
   const [scoreLight, setScoreLight] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState<'D' | 'L'>('D');
+  interface Piece { id: string; position: [number, number, number]; type: 'D' | 'L'; isQueen?: boolean; }
+  interface Explosion { id: string; position: [number, number, number]; }
   const [explosions, setExplosions] = useState<Explosion[]>([]);
   const [jumpingPieces, setJumpingPieces] = useState<Record<string, boolean>>({});
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -157,13 +155,7 @@ function GamePage() {
 
   const resetPiecesToStart = useCallback(() => {
     if (!selectedLevel) return;
-    const newPiecesRaw = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
-    const newPieces: Piece[] = newPiecesRaw.map(p => ({
-      id: p.id,
-      position: p.position as [number, number, number],
-      type: p.type === 'D' ? 'D' : 'L',
-      isQueen: p.isQueen
-    }));
+    const newPieces = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
     setPieces(newPieces);
   }, [selectedLevel]);
 
@@ -174,26 +166,14 @@ function GamePage() {
     setCurrentPlayer('D');
     setIsGameOver(false);
     setExplosions([]);
-    const newPiecesRaw = generateInitialPieces(level, size, squareSize, boardsY);
-    const newPieces: Piece[] = newPiecesRaw.map(p => ({
-      id: p.id,
-      position: p.position as [number, number, number],
-      type: p.type === 'D' ? 'D' : 'L',
-      isQueen: p.isQueen
-    }));
+    const newPieces = generateInitialPieces(level, size, squareSize, boardsY);
     setPieces(newPieces);
   }, []);
 
   // 👇 Garantează generarea pieselor când avem un nivel (inclusiv la mount cu initialLevel)
   useEffect(() => {
     if (selectedLevel) {
-      const newPiecesRaw = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
-      const newPieces: Piece[] = newPiecesRaw.map(p => ({
-        id: p.id,
-        position: p.position as [number, number, number],
-        type: p.type === 'D' ? 'D' : 'L',
-        isQueen: p.isQueen
-      }));
+      const newPieces = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
       setPieces(newPieces);
     }
   }, [selectedLevel]);

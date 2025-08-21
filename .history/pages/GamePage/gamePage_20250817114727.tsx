@@ -8,6 +8,10 @@ import { backgroundImage, styles } from '@/utils/Styles';
 import { CommonActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+// Domain types
+interface Piece { id: string; position: [number, number, number]; type: 'D' | 'L'; isQueen?: boolean; }
+interface Explosion { id: string; position: [number, number, number]; }
 import { ImageBackground, Pressable, Text as RNText, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useSharedValue } from 'react-native-reanimated';
@@ -15,10 +19,6 @@ import ExplosionEffect from './Components/ExplosionEffect/explosionEffect';
 import PiecesDark from './Components/PiecesDark';
 import PiecesLight from './Components/PiecesLight';
 import ScoreCard from './Components/ScoreCard';
-
-// Domain types
-interface Piece { id: string; position: [number, number, number]; type: 'D' | 'L'; isQueen?: boolean; }
-interface Explosion { id: string; position: [number, number, number]; }
 
 // Componentă internă care stă sub <Canvas> și poate folosi R3F hooks
 function BoardGroup({
@@ -157,13 +157,7 @@ function GamePage() {
 
   const resetPiecesToStart = useCallback(() => {
     if (!selectedLevel) return;
-    const newPiecesRaw = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
-    const newPieces: Piece[] = newPiecesRaw.map(p => ({
-      id: p.id,
-      position: p.position as [number, number, number],
-      type: p.type === 'D' ? 'D' : 'L',
-      isQueen: p.isQueen
-    }));
+    const newPieces = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
     setPieces(newPieces);
   }, [selectedLevel]);
 
@@ -174,26 +168,14 @@ function GamePage() {
     setCurrentPlayer('D');
     setIsGameOver(false);
     setExplosions([]);
-    const newPiecesRaw = generateInitialPieces(level, size, squareSize, boardsY);
-    const newPieces: Piece[] = newPiecesRaw.map(p => ({
-      id: p.id,
-      position: p.position as [number, number, number],
-      type: p.type === 'D' ? 'D' : 'L',
-      isQueen: p.isQueen
-    }));
+    const newPieces = generateInitialPieces(level, size, squareSize, boardsY);
     setPieces(newPieces);
   }, []);
 
   // 👇 Garantează generarea pieselor când avem un nivel (inclusiv la mount cu initialLevel)
   useEffect(() => {
     if (selectedLevel) {
-      const newPiecesRaw = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
-      const newPieces: Piece[] = newPiecesRaw.map(p => ({
-        id: p.id,
-        position: p.position as [number, number, number],
-        type: p.type === 'D' ? 'D' : 'L',
-        isQueen: p.isQueen
-      }));
+      const newPieces = generateInitialPieces(selectedLevel, size, squareSize, boardsY);
       setPieces(newPieces);
     }
   }, [selectedLevel]);

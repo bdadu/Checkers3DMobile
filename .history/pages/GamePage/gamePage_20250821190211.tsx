@@ -19,6 +19,8 @@ import ScoreCard from './Components/ScoreCard';
 // Domain types
 interface Piece { id: string; position: [number, number, number]; type: 'D' | 'L'; isQueen?: boolean; }
 interface Explosion { id: string; position: [number, number, number]; }
+// Stabilizăm boardsY ca referință unică pentru a evita invalidări inutile
+const BOARDS_Y: [number, number, number] = [1, -0.5, -2];
 
 // Componentă internă care stă sub <Canvas> și poate folosi R3F hooks
 function BoardGroup({
@@ -50,7 +52,7 @@ function BoardGroup({
   // Entrance animation (tabla "vine" din spate pe axa Z)
   const entranceRef = useRef<{ start: number; done: boolean }>({ start: Date.now(), done: false });
   const ENTRANCE_START_Z = -35; // cât de departe începe
-  const ENTRANCE_DURATION = 1200; // ms
+  const ENTRANCE_DURATION = 600; // ms (scurtat pentru a reduce latența inițială)
 
   useFrame(() => {
     if (!groupRef.current) return;
@@ -150,7 +152,7 @@ function GamePage() {
 
   const size = 8;
   const squareSize = 0.5;
-  const boardsY: [number, number, number] = [1, -0.5, -2];
+  const boardsY = BOARDS_Y; // folosește constanta stabilă
 
   const piecesRef = useRef(pieces);
   const currentPlayerRef = useRef(currentPlayer);

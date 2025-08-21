@@ -1,7 +1,8 @@
-import { backgroundImage, styles } from '@/utils/Styles';
 import React from 'react';
-import { ImageBackground, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import PlayAgain from './PlayAgain';
+import { styles, backgroundImage } from '@/utils/Styles';
+import { ImageBackground } from 'react-native';
 
 
 interface GameOverProps {
