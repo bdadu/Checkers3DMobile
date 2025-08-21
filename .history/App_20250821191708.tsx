@@ -1,8 +1,9 @@
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Asset } from 'expo-asset';
-import React, { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { Asset } from 'expo-asset';
 
 import GameLevelSelection from '@/components/GameLevelSelection';
 import GamePage from '@/pages/GamePage/gamePage';
