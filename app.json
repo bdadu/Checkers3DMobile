@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Checkers3D_IOS",
-    "slug": "Checkers3D_IOS",
+    "name": "Checkers 3D",
+    "slug": "checkers-3d",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.Checkers3D-IOS"
+      "bundleIdentifier": "com.bdadu.checkers3d"
     },
     "android": {
       "adaptiveIcon": {

@@ -6,8 +6,8 @@
     <true/>
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
-    <key>CFBundleDisplayName</key>
-    <string>Checkers3D_IOS</string>
+  <key>CFBundleDisplayName</key>
+  <string>Checkers 3D</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -55,8 +55,8 @@
     <array>
       <string>arm64</string>
     </array>
-    <key>UIRequiresFullScreen</key>
-    <false/>
+  <key>UIRequiresFullScreen</key>
+  <true/>
     <key>UIStatusBarStyle</key>
     <string>UIStatusBarStyleDefault</string>
     <key>UISupportedInterfaceOrientations</key>

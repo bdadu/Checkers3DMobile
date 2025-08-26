@@ -7,6 +7,7 @@ import { styles, backgroundImage, textCheckers } from '@/utils/Styles';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from 'navigation/types';
+import GameRulesButton from '@/components/GameRules';
 
 
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -19,8 +20,11 @@ export default function HomePage() {
     <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
       <View style={styles.homeGrid}>
         <Image source={textCheckers} style={styles.textCheckers} resizeMode="contain" />
-        <View style={{ width: 200, alignItems: 'center', marginTop: 24 }}>
+        <View style={{ width: 200, alignItems: 'center', marginTop: 15 }}>
           <CustomButton label="PLAY" handleClick={handlePlayClick} backgroundColor="#493628" width={160} />
+        </View>
+        <View style={{ width: 200, alignItems: 'center', marginTop: 15 }}>
+          <GameRulesButton />
         </View>
         <View style={{ position: 'absolute', bottom: 40, width: '100%', flexDirection: 'row', justifyContent: 'space-around' }}>
           <TermsAndConditionButton />

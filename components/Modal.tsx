@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 5,
     alignItems: 'center',
-    width: 300,
+    width: 330,
     maxHeight: '80%',
   },
   closeButton: {

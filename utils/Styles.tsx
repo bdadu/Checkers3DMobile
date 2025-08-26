@@ -58,8 +58,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   textCheckers: {
-    width: 240,          // dă-i valori numerice
-    height: 80,
+    width: 280,          // dă-i valori numerice
+    height: 90,
     borderRadius: 10,
     marginBottom: 100,
     display: 'flex',
