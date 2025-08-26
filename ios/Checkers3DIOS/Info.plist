@@ -6,8 +6,8 @@
     <true/>
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
-  <key>CFBundleDisplayName</key>
-  <string>Checkers 3D</string>
+    <key>CFBundleDisplayName</key>
+    <string>Checkers 3D</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -28,7 +28,13 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>checkers3dios</string>
-          <string>com.anonymous.Checkers3D-IOS</string>
+          <string>com.bdadu.checkers3d</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+checkers-3d</string>
         </array>
       </dict>
     </array>
@@ -55,8 +61,8 @@
     <array>
       <string>arm64</string>
     </array>
-  <key>UIRequiresFullScreen</key>
-  <true/>
+    <key>UIRequiresFullScreen</key>
+    <false/>
     <key>UIStatusBarStyle</key>
     <string>UIStatusBarStyleDefault</string>
     <key>UISupportedInterfaceOrientations</key>

@@ -40,7 +40,7 @@ export default function PrivacyPolicyButton() {
 
           <View style={styles.section}>
             <Text style={styles.subtitle}>✉️ Contact</Text>
-            <Text style={styles.paragraph}>If you have any concerns or questions about your privacy, please contact us at: [your_email@example.com]</Text>
+            <Text style={styles.paragraph}>If you have any concerns or questions about your privacy, please contact us at: [bogdandadugames@gmail.com]</Text>
             <Text style={styles.date}>Last updated: July 15, 2025</Text>
           </View>
         </ScrollView>
