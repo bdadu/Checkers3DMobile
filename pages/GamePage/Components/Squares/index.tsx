@@ -1,4 +1,6 @@
+// pages/GamePage/Components/Squares/index.tsx
 import React from 'react';
+import type { ThreeEvent } from '@react-three/fiber';
 
 interface SquaresProps {
   position: [number, number, number];
@@ -11,17 +13,23 @@ const Squares: React.FC<SquaresProps> = ({ position, size, color, onClick }) => 
   return (
     <mesh
       position={position}
-      onPointerDown={(e) => {
+      castShadow
+      receiveShadow
+      onPointerDown={(e: ThreeEvent<PointerEvent>) => {
         e.stopPropagation();
         onClick(position, color);
       }}
+      renderOrder={0}
     >
       <boxGeometry args={size} />
       <meshStandardMaterial
         color={color}
-        transparent
-        opacity={0.9}
-        depthWrite={false}
+        // IMPORTANT: fără transparență aici
+        transparent={false}
+        depthWrite={true}
+        depthTest={true}
+        metalness={0}
+        roughness={1}
       />
     </mesh>
   );

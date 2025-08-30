@@ -10,19 +10,18 @@ export const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    // ❌ NU: backgroundImage: backgroundImage
+    
   },
 
   gameGrid: {
     flex: 1,
-    //padding: 16,
     justifyContent: 'center',
     alignSelf: 'stretch',
     width: '100%',
     position: 'relative',
   },
 
-  // Acest stil se aplică pe <ImageBackground />
+ 
   backgroundImage: {
     flex: 1,
 
@@ -58,7 +57,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   textCheckers: {
-    width: 280,          // dă-i valori numerice
+    width: 280,          
     height: 90,
     borderRadius: 10,
     marginBottom: 100,
@@ -72,7 +71,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    gap: 1, // Reduce distanța între elemente (gap nu e standard, dar RN 0.71+ îl suportă)
+    gap: 1, 
   },
   
   title: {

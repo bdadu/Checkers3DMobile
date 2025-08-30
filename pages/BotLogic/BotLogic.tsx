@@ -176,12 +176,8 @@ export const BotLogic = {
         !piece.isQueen &&
         Math.abs(simulatedZ - lastRowZ) < TOLERANCE;
       if (piece) {
-        // @ts-ignore
-        console.log(`🧭 Bot is moving piece ${piece.id} to Z: ${simulatedZ}`);
         if (shouldPromote) {
           piece.isQueen = true;
-          // @ts-ignore
-          console.log(`👑 Piece ${piece.id} promoted to Queen at Z: ${simulatedZ}`);
         }
       }
       bestMove.targetPosition[1] += 0.05;

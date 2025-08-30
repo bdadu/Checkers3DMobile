@@ -11,13 +11,9 @@
         "./*"
       ],
       "navigation/*": [
-        "navigation/*"
+        "./navigation/*"
       ]
-    },
-    "types": [
-      "react",
-      "react-native"
-    ]
+    }
   },
   "include": [
     "**/*.ts",

@@ -1,7 +1,8 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.organizeImports": "explicit",
-    "source.sortMembers": "explicit"
+  "_comment": "DISABLED - These settings were causing code deletion",
+  "_editor.codeActionsOnSave": {
+    "_source.fixAll": "explicit",
+    "_source.organizeImports": "explicit",
+    "_source.sortMembers": "explicit"
   }
 }

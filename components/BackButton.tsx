@@ -5,12 +5,12 @@ import Colors from '../constants/Colors';
 
 interface BackButtonProps {
   onPress: () => void;
-  style?: StyleProp<ViewStyle>; // ✅ tip corect
+  style?: StyleProp<ViewStyle>; 
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ onPress, style }) => (
   <TouchableOpacity
-    style={[styles.base, style]} // ✅ fără poziționare aici
+    style={[styles.base, style]} 
     onPress={onPress}
     accessibilityLabel="Back"
     activeOpacity={0.7}
@@ -22,7 +22,6 @@ const BackButton: React.FC<BackButtonProps> = ({ onPress, style }) => (
 const styles = StyleSheet.create({
   base: {
     borderRadius: 20,
-    // fără position/top/left aici
   },
 });
 

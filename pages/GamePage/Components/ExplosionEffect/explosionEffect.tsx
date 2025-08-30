@@ -15,7 +15,7 @@ const ExplosionEffect: React.FC<ExplosionEffectProps> = ({ position, onComplete 
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    // Generate random particles for the explosion
+  
     const generatedParticles = Array.from({ length: 100 }, () => ({
       position: [
         position[0] + (Math.random() - 0.5) * 0.5,
@@ -30,7 +30,7 @@ const ExplosionEffect: React.FC<ExplosionEffectProps> = ({ position, onComplete 
     }));
     setParticles(generatedParticles);
 
-    // Automatically call onComplete after 1 second
+    
     const timeout = setTimeout(() => {
       onComplete();
     }, 1000);

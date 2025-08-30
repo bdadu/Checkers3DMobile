@@ -29,7 +29,7 @@ export default function TermsAndConditionButton() {
             <Text style={styles.subtitle}>📌 Key Terms</Text>
             <View style={styles.list}>
               <Text style={styles.listItem}>1. The app is provided "as is", without warranty of any kind.</Text>
-              <Text style={styles.listItem}>2. All intellectual property (graphics, gameplay, design, code and logic) belongs to [Bogdan Dadu].</Text>
+              <Text style={styles.listItem}>2. All intellectual property (graphics, gameplay, design, code and logic) belongs to Bogdan Dadu.</Text>
               <Text style={styles.listItem}>3. The app is for personal, non-commercial use only.</Text>
               <Text style={styles.listItem}>4. You may not attempt to copy, modify, distribute or reverse-engineer the app.</Text>
               <Text style={styles.listItem}>5. Payments made through App Store or Google Play are final and non-refundable, except as required by applicable law.</Text>
@@ -40,8 +40,8 @@ export default function TermsAndConditionButton() {
           <View style={styles.section}>
             <Text style={styles.subtitle}>🧾 Acknowledgement</Text>
             <Text style={styles.paragraph}>If you do not agree with these terms, please uninstall the app.</Text>
-            <Text style={styles.paragraph}>For questions, contact: [bogdandadugames@gmail.com]</Text>
-            <Text style={styles.date}>© 2025 [Bogdan Dadu]. All rights reserved.</Text>
+            <Text style={styles.paragraph}>For questions, contact: bogdandadugames@gmail.com</Text>
+            <Text style={styles.date}>© 2025 Bogdan Dadu. All rights reserved.</Text>
           </View>
         </ScrollView>
       </Modal>

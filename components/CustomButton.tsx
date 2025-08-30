@@ -5,8 +5,8 @@ interface CustomButtonProps {
   label: string;
   handleClick: (event: GestureResponderEvent) => void;
   backgroundColor?: string;
-  hoverColor?: string; // Not folosit nativ
-  width?: number; // Doar number pentru RN
+  hoverColor?: string; 
+  width?: number; 
   style?: ViewStyle;
 }
 
@@ -50,4 +50,3 @@ const styles = StyleSheet.create({
 });
 
 export default CustomButton;
-
