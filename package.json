@@ -48,7 +48,8 @@
     "react-native-screens": "~4.11.1",
     "react-native-web": "~0.20.0",
     "three": "^0.166.1",
-    "three-stdlib": "^2.36.0"
+    "three-stdlib": "^2.36.0",
+    "@react-native-masked-view/masked-view": "0.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -59,5 +60,6 @@
     "typescript": "~5.8.3",
     "@react-native-community/cli": "latest"
   },
-  "private": true
+  "private": true,
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
