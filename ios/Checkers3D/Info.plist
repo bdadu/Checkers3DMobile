@@ -102,5 +102,11 @@
     <string>Automatic</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2025 Bogdan Dadu. All rights reserved.</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.games</string>
   </dict>
 </plist>
