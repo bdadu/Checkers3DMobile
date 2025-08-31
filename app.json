@@ -13,7 +13,30 @@
     "primaryColor": "#8B4513",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bdadu.checkers3d"
+      "bundleIdentifier": "com.bdadu.checkers3d",
+      "icon": "./assets/images/icon.png",
+      "infoPlist": {
+        "CFBundleIconFiles": [
+          "./assets/images/20.png",
+          "./assets/images/29.png",
+          "./assets/images/40.png",
+          "./assets/images/50.png",
+          "./assets/images/57.png",
+          "./assets/images/58.png",
+          "./assets/images/60.png",
+          "./assets/images/72.png",
+          "./assets/images/76.png",
+          "./assets/images/80.png",
+          "./assets/images/87.png",
+          "./assets/images/100.png",
+          "./assets/images/114.png",
+          "./assets/images/120.png",
+          "./assets/images/144.png",
+          "./assets/images/152.png",
+          "./assets/images/167.png",
+          "./assets/images/180.png"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
