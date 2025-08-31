@@ -1,4 +1,4 @@
-// Tipuri pentru piese și mutări
+
 export type PieceType = 'D' | 'L';
 export interface Piece {
   id: string;

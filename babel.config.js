@@ -14,7 +14,6 @@ module.exports = function (api) {
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         },
       ],
-      // ⚠️ Trebuie să fie ULTIMUL plugin
       'react-native-reanimated/plugin',
     ],
   };

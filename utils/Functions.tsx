@@ -120,7 +120,6 @@ export const handleBotMove = (
         if (botMove) {
         	if (botMove.isCapture) {
             setJumpingPieces((prev: any) => ({ ...prev, [botMove.pieceId]: true }));
-            // Sincronizat cu animația pieselor: 1000ms
             setTimeout(() => {
                 setJumpingPieces((prev: any) => {
                     const updated = { ...prev };
@@ -176,8 +175,6 @@ export const handleBotMove = (
         setTimeout(() => {
             setCurrentPlayer('D');
         }, 2000);
-    } else {
-        console.log('No valid moves for bot');
     }
 };
 
@@ -199,17 +196,17 @@ export function handleSquareClick(
     setScoreDark: any
 ) {
     if (!selectedPieceId) {
-        console.log('No piece selected');
+       
         return;
     }
     const selected = pieces.find(p => p.id === selectedPieceId);
     if (!selected) {
-        console.log('Selected piece not found');
+       
         return;
     }
 
     if (selected.type !== currentPlayer) {
-        console.log('Cannot move bot pieces');
+      
         return;
     }
 
@@ -231,7 +228,7 @@ export function handleSquareClick(
         Math.abs(newPos[1] - curY) <= Math.abs(boardsY[2] - boardsY[0]) + tolerance;
 
     if (!isSimpleMove && !isJumpMove) {
-        console.log('Invalid move type');
+        
         return;
     }
 
@@ -271,7 +268,7 @@ export function handleSquareClick(
         }
     } else if (isJumpMove) {
         setJumpingPieces((prev: any) => ({ ...prev, [selectedPieceId]: true }));
-    // 1000ms pentru a se potrivi cu durata animației din PiecesDark
+   
         setTimeout(() => {
             setJumpingPieces((prev: any) => {
                 const updated = { ...prev };

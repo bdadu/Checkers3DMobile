@@ -19,7 +19,7 @@ export default function ScoreCard({ scoreDark, scoreLight, style }: ScoreCardPro
     >
       <Text style={styles.title}>SCOREBOARD</Text>
 
-      {/* Player (dot negru) */}
+
       <View style={styles.row}>
         <View style={styles.left}>
           <View style={[styles.dot, { backgroundColor: '#000' }]} />
@@ -28,7 +28,6 @@ export default function ScoreCard({ scoreDark, scoreLight, style }: ScoreCardPro
         <AnimatedScore key={scoreDark} value={scoreDark} color={Colors.beige.lightBeige} />
       </View>
 
-      {/* Bot (dot alb) */}
       <View style={styles.row}>
         <View style={styles.left}>
           <View style={[styles.dot, { backgroundColor: '#fff' }]} />
@@ -59,8 +58,8 @@ function AnimatedScore({ value, color }: { value: number; color: string }) {
 
 const styles = StyleSheet.create({
   card: {
-    width: 220,           // ⬅️ cerut
-    height: 100,          // ⬅️ cerut
+    width: 220,
+    height: 100,
     backgroundColor: Colors.brown.darkBrown,
     borderRadius: 12,
     paddingVertical: 10,

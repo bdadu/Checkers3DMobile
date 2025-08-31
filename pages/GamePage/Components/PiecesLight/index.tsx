@@ -13,12 +13,11 @@ interface PiecesLightProps {
   isJump?: boolean;
 }
 
-// Aliniat cu implementarea pentru PiecesDark
-const DURATION = 1.0; // secunde, sincronizat cu timeout-ul isJump (1000ms)
-const ARC_HEIGHT = 1.0; // înălțimea arcului
+const DURATION = 1.0; 
+const ARC_HEIGHT = 1.0;
 
 const bezier2 = (a: Vector3, b: Vector3, c: Vector3, t: number, out: Vector3) => {
-  // (1-t)^2 * a + 2(1-t)t * b + t^2 * c
+
   const s = 1 - t;
   out.set(
     s * s * a.x + 2 * s * t * b.x + t * t * c.x,
@@ -45,13 +44,12 @@ const PiecesLight: React.FC<PiecesLightProps> = ({ id, position, onClick, isQuee
     if (!meshRef.current) return;
 
     if (isJump) {
-      // Start din ultima pozitie reală, pentru a evita „teleport”-ul
       const start = lastPosRef.current.clone();
       const end = new Vector3(...position);
       const ctrl = start.clone().lerp(end, 0.5);
       ctrl.y += ARC_HEIGHT;
 
-      // Resetăm poziția vizuală la start înainte de animare
+
       meshRef.current.position.copy(start);
 
       animRef.current = {
@@ -63,7 +61,6 @@ const PiecesLight: React.FC<PiecesLightProps> = ({ id, position, onClick, isQuee
         ctrl,
       };
     } else {
-      // Mutare simplă sau idle: setăm poziția și memorăm ca „ultima poziție”
       meshRef.current.position.set(...position);
       lastPosRef.current.set(position[0], position[1], position[2]);
       animRef.current.jumping = false;
@@ -76,11 +73,8 @@ const PiecesLight: React.FC<PiecesLightProps> = ({ id, position, onClick, isQuee
 
     const a = animRef.current;
     if (!a.jumping) return;
-
-    // avansăm timpul în funcție de delta (FPS independent)
     a.t = Math.min(1, a.t + delta / a.duration);
 
-    // Easing ușor (easeInOutQuad)
     const t = a.t < 0.5 ? 2 * a.t * a.t : -1 + (4 - 2 * a.t) * a.t;
 
     bezier2(a.start, a.ctrl, a.end, t, tmp.current);
@@ -112,7 +106,7 @@ const PiecesLight: React.FC<PiecesLightProps> = ({ id, position, onClick, isQuee
             roughness={0.25}
             transparent
             opacity={0.95}
-            side={DoubleSide}   // <- important
+            side={DoubleSide}   
           />
         </mesh>
       )}

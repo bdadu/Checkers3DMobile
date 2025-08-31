@@ -7,7 +7,10 @@
     "icon": "./assets/images/icon.png",
     "scheme": "checkers3dios",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
+    "description": "Experience classic checkers in stunning 3D! Play against AI with multiple difficulty levels in this beautiful three-dimensional board game.",
+    "keywords": ["checkers", "3d", "board game", "strategy", "ai", "chess"],
+    "primaryColor": "#8B4513",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bdadu.checkers3d"
@@ -18,7 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.Checkers3DIOS"
+      "package": "com.bdadu.checkers3d"
     },
     "web": {
       "bundler": "metro",

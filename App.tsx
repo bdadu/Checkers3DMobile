@@ -1,4 +1,3 @@
-
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Asset } from 'expo-asset';
@@ -19,7 +18,7 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-	// Preload imaginea de background ca să evităm flash alb/negru la tranziții
+
 	const [assetsReady, setAssetsReady] = useState(false);
 	useEffect(() => {
 		let cancelled = false;
@@ -27,14 +26,14 @@ export default function App() {
 			try {
 				await Asset.fromModule(backgroundImage).downloadAsync();
 			} catch (e) {
-				// Ignorăm – imaginea oricum este bundled, dar preloading grăbește afișarea inițială
+			
 			}
 			if (!cancelled) setAssetsReady(true);
 		})();
 		return () => { cancelled = true; };
 	}, []);
 
-	// Theme cu background transparent astfel încât să nu apară flash alb între ecrane
+	
 	const navTheme = React.useMemo(() => ({
 		...DefaultTheme,
 		colors: { ...DefaultTheme.colors, background: 'transparent' }
@@ -45,14 +44,13 @@ export default function App() {
 			<GestureHandlerRootView style={{ flex: 1, backgroundColor: '#000' }} />
 		);
 	}
-
-	return (
+    return (
 		<GestureHandlerRootView style={{ flex: 1, backgroundColor: '#000' }}>
 			<NavigationContainer theme={navTheme}>
 				<Stack.Navigator
 					screenOptions={{
 						headerShown: false,
-						animation: 'fade', // o tranziție mai blândă fără flash
+						animation: 'fade',
 						contentStyle: { backgroundColor: 'transparent' }
 					}}>
 					<Stack.Screen name="Home" component={HomePage} />

@@ -13,8 +13,8 @@ interface PiecesDarkProps {
   isSelected?: boolean;
 }
 
-const DURATION = 1.0; // secunde, sincronizat cu timeout-ul isJump (1000ms)
-const ARC_HEIGHT = 1.0; // înălțimea arcului
+const DURATION = 1.0; 
+const ARC_HEIGHT = 1.0; 
 
 const bezier2 = (a: Vector3, b: Vector3, c: Vector3, t: number, out: Vector3) => {
   const s = 1 - t;
@@ -48,7 +48,6 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
       const ctrl = start.clone().lerp(end, 0.5);
       ctrl.y += ARC_HEIGHT;
 
-      // Reset poziția vizuală la start ca să evităm „teleport” la target
       meshRef.current.position.copy(start);
 
       animRef.current = {
@@ -60,7 +59,7 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
         ctrl,
       };
     } else {
-      // Mutare simplă sau idle: setează poziția și memorează ca „ultima poziție”
+  
       meshRef.current.position.set(...position);
       lastPosRef.current.set(position[0], position[1], position[2]);
       animRef.current.jumping = false;
@@ -73,10 +72,7 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
     const a = animRef.current;
     if (!a.jumping) return;
 
-    // avansează timpul în funcție de delta (FPS independent)
     a.t = Math.min(1, a.t + delta / a.duration);
-
-    // easing ușor (easeInOutQuad)
     const t = a.t < 0.5 ? 2 * a.t * a.t : -1 + (4 - 2 * a.t) * a.t;
 
     bezier2(a.start, a.ctrl, a.end, t, tmp.current);
@@ -117,7 +113,7 @@ const PiecesDark: React.FC<PiecesDarkProps> = ({ id, position, onClick, isQueen,
             roughness={0.25}
             transparent
             opacity={0.95}
-            side={DoubleSide}   // <- important
+            side={DoubleSide}   
           />
         </mesh>
       )}

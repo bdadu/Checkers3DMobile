@@ -24,7 +24,6 @@ const Squares: React.FC<SquaresProps> = ({ position, size, color, onClick }) => 
       <boxGeometry args={size} />
       <meshStandardMaterial
         color={color}
-        // IMPORTANT: fără transparență aici
         transparent={false}
         depthWrite={true}
         depthTest={true}
